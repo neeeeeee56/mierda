@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Dashboard ESP32</title>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+ <h1> Dashboard IoT</h1>
+ <canvas id="tempChart"></canvas>
+ <canvas id="humChart"></canvas>
+<script>
+const url = "https://api.thingspeak.com/channels/3349798/feeds.json?results=20";
+fetch(url)
+ .then(response => response.json())
+ .then(data => {
+ let feeds = data.feeds;
+ let temps = feeds.map(f => f.field1);
+ let hums = feeds.map(f => f.field2);
+ let labels = feeds.map((_, i) => i);
+ new Chart(document.getElementById("tempChart"), {
+ type: "line",
+ data: {
+ labels: labels,
+datasets: [{
+ label: "Temperatura (°C)",
+ data: temps,
+ borderColor: "red"
+ }]
+ }
+ });
+ new Chart(document.getElementById("humChart"), {
+ type: "line",
+ data: {
+ labels: labels,
+ datasets: [{
+ label: "Humedad (%)",
+ data: hums,
+ borderColor: "blue"
+ }]
+ }
+ });
+ });
+</script>
+</body>
+</html>
