@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Análisis IoT</title>
+</head>
+<body>
+<h1>Análisis de datos</h1>
+<p id="media (última hora)"></p>
+<p id="max (última hora)"></p>
+<p id="min (última hora)"></p>
+<p id="tendencia (última hora)"></p>
+<a href="index.html">⬅ Volver</a>
+<script>
+const url = "https://api.thingspeak.com/channels/3349798/feeds.json?results=200";
+fetch(url)
+ .then(response => response.json())
+then(data => {
+ let feeds = data.feeds;
+ let temps = feeds.map(f => parseFloat(f.field1));
+ let suma = temps.reduce((a, b) => a + b, 0);
+ let media = suma / temps.length;
+ let max = Math.max(...temps);
+ let min = Math.min(...temps);
+ let tendencia = temps[temps.length - 1] > temps[0] ? "Subiendo " : "Bajando ";
+ document.getElementById("media").innerHTML = "Media: " + media.toFixed(2);
+ document.getElementById("max").innerHTML = "Máximo: " + max;
+ document.getElementById("min").innerHTML = "Mínimo: " + min;
+ document.getElementById("tendencia").innerHTML = "Tendencia: " + tendencia;
+ });
+</script>
+</body>
+</html>
