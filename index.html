@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+6
  <title>Dashboard ESP32</title>
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -8,7 +9,6 @@
  <h1> Dashboard IoT</h1>
  <canvas id="tempChart"></canvas>
  <canvas id="humChart"></canvas>
- <a href="pagina2.html">Ir a la página secundaria</a>
 <script>
 const url = "https://api.thingspeak.com/channels/3349798/feeds.json?results=20";
 fetch(url)
@@ -22,7 +22,8 @@ fetch(url)
  type: "line",
  data: {
  labels: labels,
-datasets: [{
+7
+ datasets: [{
  label: "Temperatura (°C)",
  data: temps,
  borderColor: "red"
@@ -43,4 +44,5 @@ datasets: [{
  });
 </script>
 </body>
+</html>
 </html>
